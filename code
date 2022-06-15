@@ -1,0 +1,47 @@
+"money management"
+pb=float(input("portfolio balance :"))
+ror=str(input("risk of ruin(% or auto) :"))
+ep=float(input("entry point :"))
+sl=float(input("stop loss :"))
+tp=float(input("take profit :"))
+lev=float(input("leverage :"))
+
+"RR"
+if ep>sl and ep<tp : 
+    slrr=(ep-sl)/ep*100
+    tprr=(tp-ep)/ep*100
+elif ep<sl and ep>tp :
+    slrr=(sl-ep)/ep*100
+    tprr=(ep-tp)/ep*100
+rr=tprr/slrr
+print("stop loss =%.2f" %slrr,"%")
+print("take profit =%.2f" %tprr,"%")
+
+"ROR"
+if ror=="auto" :
+
+    if rr<=1 :
+        print("risk reward ratio ตำ่เกินไปห้ามเล่น")
+    else :
+        print("risk reward ratio = 1 :%.2f" %rr)
+
+        if rr>=1 and rr<=2 :
+            ror=2
+        if rr>=2 and rr<=3 :
+            ror=5
+        if rr>=3 :
+            ror=10
+
+        print("จะเทรดได้ทั้งหมด =%.2f" %(100/ror),"ครั้ง")
+
+else :
+    print("risk reward ratio = 1 :",rr)
+    print("จะเทรดได้ทั้งหมด =%.2f" %(100/int(ror)),"ครั้ง")
+
+"position size"
+ps=(int(ror)*pb)/(slrr*lev)
+print("position size =%.2f" %ps)
+
+
+
+
